@@ -10,7 +10,7 @@ describe('EPAM Contuct Us form', () => {
             .should('exist');
         cy.xpath('//input[@name="user_email" and @aria-invalid="true"]')
             .should('exist');
-        cy.xpath('//input[@name="user_phone" and @aria-invalid="true"]')
+        cy.xpath('//input[@name="user_phone" and @aria-invalid="true"]') //todo: need to check at least one field for false
             .should('exist');  
         cy.xpath('//span[@aria-describedby="_content_epam_en_about_who-we-are_contact_jcr_content_content-container_section_section-par_form_constructor_user_comment_how_hear_about-error" and @aria-invalid="true"]')
             .should('exist');

@@ -12,8 +12,7 @@ describe('EPAM Location List Test', () => {
 
         regions.forEach(region => {
             cy.contains('a', region).click()
-            cy.contains('a', region).should('have.class', 'active')
-
+            cy.contains('a', region).should('have.class', 'active') //todo no need to use cy.contains one 2 times, just continue the chain
         });
 
     })
