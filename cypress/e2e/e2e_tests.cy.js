@@ -1,7 +1,7 @@
-import BasePage from '../PageObject/base_page'
+import BasePage from '../PageObject/base_page' //todo: name of PageObject folder should be in the same style as other folders
 
 describe('EPAM E2E testing', () => {
-
+//todo: please put cy.visit in the beforeEach hook, and for test on ContactUs page use method - .clickContactUsButton(), that will return new ContuctUsPage()
     it('Visits EPAM and checks the title', () => {
       cy.visit("/")
       cy.title().should("eq", "EPAM | Software Engineering & Product Development Services");
@@ -19,7 +19,7 @@ describe('EPAM E2E testing', () => {
 
     it('should navigate to the Ukrainian careers page', () => {
       cy.visit('/');
-      cy.get(BasePage.languageButtonArrow).click();
+      cy.get(BasePage.languageButtonArrow).click(); //todo: you should not use cy.het(locator) here, in test file, you should us methods - actions from your pages: homePage.clickLanguageButtonArrow().clickUaLanguageButton()
       cy.get(BasePage.uaLanguage).eq(1).click(); 
 
       cy.on('uncaught:exception', (err) => {
@@ -81,8 +81,11 @@ describe('EPAM E2E testing', () => {
       });
     });
 
-    it('Check reqired fiedls validation', () => {
-        
+    it('Check reqired fiedls validation', () => { //todo: please pay attention on gramma as well
+        //todo: here is example:
+        // homePage
+        //     .clickContactUsButton()
+        //     .clickSubmitButton()
       cy.visit('/about/who-we-are/contact');
       cy.get(BasePage.contactUsSubmit).click();
 

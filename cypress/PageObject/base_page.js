@@ -1,12 +1,19 @@
-export default class BasePage {
+export default class BasePage { //todo: you need to get a practice with inheritance Base Page (contains all elements, that are present on all pages), HomePage (class HomePage extends BasePage ),
+    // todo - AboutPage, ContuctUsPage extends Base Page as well
 
-    static themeMode = ".theme-switcher-label";
-    static buttonThemeMode = ".header__vaulting-container .switch";
+    static themeMode = ".theme-switcher-label"; //todo: please do not put locator in string - just use it in getters, here is example:
+    // get themeMode() {
+    // return cy.get('.theme-switcher-label');
+    // };
+    static buttonThemeMode = ".header__vaulting-container .switch"; //todo: please write the type of element at the end of name: buttonThemeModeSwitcher (for all your locators)
     static languageButtonArrow = ".location-selector__button .location-selector__button-arrow-wrapper";
-    static uaLanguage = "a[href='https://careers.epam.ua'][lang='uk']";
+    static uaLanguage = "a[href='https://careers.epam.ua'][lang='uk']";//todo: the type of element - put it in the name, and please do not use such locator, that includes eq[1], I wrote you an example last time
     static vacanciesButton = "span a[href='/vacancies']";
     static searchField = "input#new_form_search";
-    static searchButton = "button.header-search__button.header__icon";
+    static searchButton = "button.header-search__button.header__icon"; //todo:
+    // get searchButton() {
+    // return cy.get('button.header-search__button.header__icon');
+    // };
     static findButton = ".custom-button";
     static searchResults = ".search-results__items";
     static searchResult = ".search-results__item";
@@ -35,15 +42,19 @@ export default class BasePage {
         { text: 'Recruitment Fraud Disclaimer', container: '.policies-right' }
     ];
 
-    static regions = ['AMERICAS', 'EMEA', 'APAC'];
+    static regions = ['AMERICAS', 'EMEA', 'APAC']; // todo: it is a data, so you should keep it on the spec file;
     
-    static typeInSearchField(keyword) {
+    static typeInSearchField(keyword) { //todo: you should not keep cy.get in methods, but in return value (you need to refactor as in my example line 3):
+        //todo: your method's name is about typing, and inside of it you are also clicking on Find button - method's name should be correspond with actions inside.
+        //this.searchButton.click();
+        //this.searchField.type(keyword);
+        //this.findButton.click();
         cy.get(this.searchButton).click();
         cy.get(this.searchField).type(keyword);
         cy.get(this.findButton).click();
     }
 
-    static contuctUsFields = {
+    static contuctUsFields = { // todo: it is a data, so you should keep it on the spec file;
         [this.firstNameField]: 'true',
         [this.firstNameField]: 'true',
         [this.userEmailField]: 'true',
