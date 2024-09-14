@@ -1,0 +1,28 @@
+{
+    "region": ["AMERICAS", "EMEA", "APAC"],
+    
+    "policyLinks" : [
+        { "text": "INVESTORS", "container": ".policies-left" },
+        { "text": "COOKIE POLICY", "container": ".policies-left" },
+        { "text": "OPEN SOURCE", "container": ".policies-left" },
+        { "text": "PRIVACY POLICY", "container": ".policies-left" },
+        { "text": "APPLICANT PRIVACY NOTICE", "container": ".policies-right" },
+        { "text": "WEB ACCESSIBILITY", "container": ".policies-right" },
+        { "text": "UK MODERN SLAVERY STATEMENT", "container": ".policies-right" },
+        { "text": "Recruitment Fraud Disclaimer", "container": ".policies-right" }
+    ],
+
+    "pageTitle": "EPAM | Software Engineering & Product Development Services",
+
+    "contactUsFields": {
+        "firstNameField": "true",
+        "lastNameField": "true",
+        "userEmailField": "true",
+        "userPhoneField": "true",
+        "userCompanyField": "false",
+        "commentField": "false",
+        "howDidYouHearField": "true"
+    },
+
+    "searchKeyword" : "EPAM"
+}
