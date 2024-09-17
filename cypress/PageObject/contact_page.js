@@ -35,11 +35,19 @@ class ContactUsPage extends BasePage {
     }
 
     visitUrl(url = "https://www.epam.com/about/who-we-are/contact") {
-        return cy.visit(url);
+        cy.visit(url);
+        return this
     }
 
     submitForm() {
         this.contactUsSubmitButton.click();
+    }
+
+    contuctUsFieldsValidation(fields) {
+        Object.keys(fields).forEach(fieldKey => {
+            this[fieldKey].should('have.attr', 'aria-invalid', fields[fieldKey]);
+        });
+        return this;
     }
 }
 

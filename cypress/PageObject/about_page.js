@@ -2,11 +2,17 @@ import BasePage from '../PageObject/base_page'
 
 class AboutPage extends BasePage {
     visitUrl(url = "https://www.epam.com/about") {
-        return cy.visit(url);
+        cy.visit(url);
+        return this
     }
 
-    downloadButton() {
+    get downloadButton() {
         return cy.get(".button__wrapper > a[download='']");
+    }
+
+    fileNameCheck(filename) {
+        cy.readFile(filename).should('exist');
+        return this
     }
 }
 

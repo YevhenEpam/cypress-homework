@@ -24,5 +24,7 @@
         "howDidYouHearField": "true"
     },
 
-    "searchKeyword" : "EPAM"
+    "searchKeyword" : "EPAM",
+
+    "fileName": "cypress/downloads/EPAM_Corporate_Overview_Q4_EOY.pdf"
 }

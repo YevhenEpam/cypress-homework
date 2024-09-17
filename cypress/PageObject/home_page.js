@@ -58,14 +58,16 @@ class HomePage extends BasePage {
         return "span a[href='/vacancies']";
       }
 
-    visitUrl(url = "https://www.epam.com/") {
-        return cy.visit(url);
+      visitUrl(url = "https://www.epam.com/") {
+        cy.visit(url);
+        return this;
     }
 
     typeInSearchField(keyword) {
         this.searchButton.click();
         this.searchFieldInput.type(keyword);
         this.findButton.click();
+        return this;
     }
 
     pageException() {
@@ -75,6 +77,51 @@ class HomePage extends BasePage {
             }
             throw err;
         });
+        return this;
+    }
+
+    themeCheck() {
+        this.themeMode.invoke('text').then((initialTheme) => {
+  
+            this.themeModeButton.click();
+            this.themeMode.invoke('text').should('not.eq', initialTheme);
+          });
+        return this
+    }
+
+    policyLinksCheck(policyLinks) {
+        policyLinks.forEach(link => {
+            cy.get(link.container).contains('a', link.text).should('be.visible');
+          });
+        return this
+    }
+
+    locationCheck (locationList) {
+        locationList.forEach(region => {
+            cy.contains('a', region)
+              .should('be.visible')
+              .and('have.attr', 'role', 'tab') 
+              .click();
+    
+            cy.contains('a', region)
+              .should('have.class', 'active')
+              .and('attr', 'aria-selected', 'true');
+          });
+    }
+
+    validateSearchResults(searchKeyword) {
+        this.searchResultItem.should('have.length.greaterThan', 0, 'No results found.');
+        this.searchResultItem.each((_, index) => {
+            this.searchResultTitle.eq(index).invoke('text').then((titleText) => {
+                this.searchResultDescription.eq(index).invoke('text').then((descriptionText) => {
+                    expect(
+                        titleText.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        descriptionText.toLowerCase().includes(searchKeyword.toLowerCase())
+                    ).to.be.true;
+                });
+            });
+        });
+        return this;
     }
 }
 

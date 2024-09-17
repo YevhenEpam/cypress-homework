@@ -5,7 +5,28 @@ export default class BasePage {
     };
 
     visitUrl(url = "https://www.epam.com/") {
-        return cy.visit(url);
+        cy.visit(url);
+        return this
+    };
+
+    titleCheck(title) {
+        cy.title().should("eq", title);
+        return this
+    }
+
+    clickOnElement(element) {
+        element.click();
+        return this
+    }
+
+    elementShouldBeVisible(element) {
+        element.should('be.visible');
+        return this
+    }
+
+    urlCheck(url) {
+        cy.url().should('eq', url);
+        return this
     }
 }
 
