@@ -52,12 +52,11 @@ describe('EPAM E2E testing', () => {
 
     it('Checks the search function', () => {
 
-      let searchKeyword = testData.searchKeyword;
       homePage
         .visitUrl()
-        .typeInSearchField(searchKeyword)
+        .typeInSearchField(testData.searchKeyword)
         .elementShouldBeVisible(homePage.searchResultList)
-        .validateSearchResults(searchKeyword)
+        .validateSearchResults(testData.searchKeyword)
     });
 
     it('Check required fields validation', () => {
