@@ -89,11 +89,8 @@ class HomePage extends BasePage {
         return this
     }
 
-    policyLinksCheck(policyLinks) {
-        policyLinks.forEach(link => {
-            cy.get(link.container).contains('a', link.text).should('be.visible');
-          });
-        return this
+    policyLinks(link) {
+        return cy.get(link.container).contains('a', link.text);
     }
 
     locationCheck (locationList) {

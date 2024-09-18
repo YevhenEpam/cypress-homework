@@ -10,7 +10,7 @@ describe('EPAM E2E testing', () => {
       
       basePage
         .visitUrl()
-        .titleCheck(testData.pageTitle)
+        cy.title().should("eq", testData.pageTitle)
     });
 
     it('should switch between Light and Dark modes', () => {
@@ -37,11 +37,11 @@ describe('EPAM E2E testing', () => {
 
 
     it('Visits EPAM and checks policies at the bottom of the page', () => {
-      
-      homePage
-        .visitUrl()
-        .policyLinksCheck(testData.policyLinks)
-    });
+      homePage.visitUrl();
+      testData.policyLinks.forEach(link => {
+          homePage.policyLinks(link).should('be.visible');
+      });
+  });
 
     it('Visits EPAM and checks location list', () => {
       
@@ -83,7 +83,7 @@ describe('EPAM E2E testing', () => {
         .visitUrl();
       basePage
         .clickOnElement(basePage.headerLogo)
-        .urlCheck('https://www.epam.com/')
+        cy.url().should('eq', 'https://www.epam.com/');
     });
 
     it('downloads the EPAM Corporate Overview 2023 report', () => {
@@ -92,7 +92,7 @@ describe('EPAM E2E testing', () => {
       aboutPage.
         visitUrl()
         .clickOnElement(aboutPage.downloadButton)
-        .fileNameCheck(testData.fileName)
+        cy.readFile(testData.fileName).should('exist');
     });
 });
 
