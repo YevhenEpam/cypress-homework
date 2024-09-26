@@ -10,21 +10,21 @@ describe('EPAM E2E testing', () => {
       
       basePage
         .visitUrl()
-        .titleCheck(testData.pageTitle)
+        .titleCheck(testData.pageTitle)//todo: please, keep all checks in tests, not in methods
     });
 
     it('should switch between Light and Dark modes', () => {
 
       homePage
         .visitUrl()
-        .themeCheck()
+        .themeCheck() //todo: please, keep all checks in tests, not in methods,
     });
 
     it('should navigate to the Ukrainian careers page', () => {
       
       homePage
         .visitUrl()
-        .clickOnElement(homePage.languageArrowButton)
+        .clickOnElement(homePage.languageArrowButton) //todo: you can keep it as is, but it is better to have a separate clicking method for each button, because it could return different pages
         .clickOnElement(homePage.uaLanguageButton)
         .pageException()
 
@@ -40,28 +40,34 @@ describe('EPAM E2E testing', () => {
       
       homePage
         .visitUrl()
-        .policyLinksCheck(testData.policyLinks)
+        .policyLinksCheck(testData.policyLinks) //todo: please, keep all checks in tests, not in methods,
     });
 
     it('Visits EPAM and checks location list', () => {
       
       homePage
         .visitUrl()
-        .locationCheck(testData.region)
+        .locationCheck(testData.region) //todo: please, keep all checks in tests, not in methods. There is no need to keep 3 words in the json file, use principle KISS:
+          //todo: ["AMERICAS", "EMEA", "APAC"].forEach(region => {
+        //             homePage.clickLocationTab(region)
+        //             cy.contains('a', region)
+        //             .should('have.class', 'active')
+        //             .and('attr', 'aria-selected', 'true');
+        //           });
     });
 
     it('Checks the search function', () => {
 
       homePage
         .visitUrl()
-        .typeInSearchField(testData.searchKeyword)
-        .elementShouldBeVisible(homePage.searchResultList)
+        .typeInSearchField(testData.searchKeyword) //todo: There is no need to keep 1 word in the json file, use principle KISS
+        .elementShouldBeVisible(homePage.searchResultList) //todo: please, keep all checks in tests, not in methods,
         .validateSearchResults(testData.searchKeyword)
     });
 
     it('Check required fields validation', () => {
       
-      const fields = {
+      const fields = {//todo: it is too complicated, I would keep all boolean values here
         firstNameField: testData.contactUsFields.firstNameField,
         lastNameField: testData.contactUsFields.lastNameField,
         userEmailField: testData.contactUsFields.userEmailField,
@@ -74,16 +80,16 @@ describe('EPAM E2E testing', () => {
       contactUsPage
         .visitUrl()
         .clickOnElement(contactUsPage.contactUsSubmitButton)
-        .contuctUsFieldsValidation(fields)
+        .contuctUsFieldsValidation(fields) //todo: please, keep all checks in tests, not in methods,
     });
   
     it('checks if the company logo leads to the main page', () => {
 
       aboutPage
         .visitUrl();
-      basePage
+      basePage //todo: you don't need this line, just continue the chain
         .clickOnElement(basePage.headerLogo)
-        .urlCheck('https://www.epam.com/')
+        .urlCheck('https://www.epam.com/') //todo: please, keep all checks in tests, not in methods
     });
 
     it('downloads the EPAM Corporate Overview 2023 report', () => {
@@ -92,7 +98,7 @@ describe('EPAM E2E testing', () => {
       aboutPage.
         visitUrl()
         .clickOnElement(aboutPage.downloadButton)
-        .fileNameCheck(testData.fileName)
+        .fileNameCheck(testData.fileName) //todo: please, keep all checks in tests, not in methods
     });
 });
 

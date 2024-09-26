@@ -19,7 +19,7 @@ export default class BasePage {
         return this
     }
 
-    elementShouldBeVisible(element) {
+    elementShouldBeVisible(element) { //todo: please, don't use this method, check each element separately inside the test(spec file)
         element.should('be.visible');
         return this
     }

@@ -63,7 +63,7 @@ class HomePage extends BasePage {
         return this;
     }
 
-    typeInSearchField(keyword) {
+    typeInSearchField(keyword) {//todo: name's method is not full, you are not only typing, you are clicking on findButton then
         this.searchButton.click();
         this.searchFieldInput.type(keyword);
         this.findButton.click();
@@ -80,10 +80,10 @@ class HomePage extends BasePage {
         return this;
     }
 
-    themeCheck() {
+    themeCheck() { //todo: you should not have methods with checking (exception - if it is long or complicated)
         this.themeMode.invoke('text').then((initialTheme) => {
   
-            this.themeModeButton.click();
+            this.themeModeButton.click(); //todo: you can create a method clickThemeMode() and put this line inside it, then use it in test
             this.themeMode.invoke('text').should('not.eq', initialTheme);
           });
         return this
@@ -98,9 +98,9 @@ class HomePage extends BasePage {
 
     locationCheck (locationList) {
         locationList.forEach(region => {
-            cy.contains('a', region)
+            cy.contains('a', region) //todo: you can create method clickLocationTab(region) and put lines 101-104 inside
               .should('be.visible')
-              .and('have.attr', 'role', 'tab') 
+              .and('have.attr', 'role', 'tab') //todo: what is the purpose of this check?
               .click();
     
             cy.contains('a', region)
@@ -110,7 +110,7 @@ class HomePage extends BasePage {
     }
 
     validateSearchResults(searchKeyword) {
-        this.searchResultItem.should('have.length.greaterThan', 0, 'No results found.');
+        this.searchResultItem.should('have.length.greaterThan', 0, 'No results found.');//todo: what is the purpose of last parameter here?
         this.searchResultItem.each((_, index) => {
             this.searchResultTitle.eq(index).invoke('text').then((titleText) => {
                 this.searchResultDescription.eq(index).invoke('text').then((descriptionText) => {
@@ -123,6 +123,12 @@ class HomePage extends BasePage {
         });
         return this;
     }
+    //todo: this method is too complicated: probably it is enough (but put such lines on the spec file, not in method)
+    // this.searchResultItem
+    //      .should('be.visible')
+    //      .each(($article) =>
+    //           cy.wrap($article).should('contain', 'AI'))
+    //     });
 }
 
 export const homePage = new HomePage();
