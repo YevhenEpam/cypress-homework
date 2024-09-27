@@ -14,11 +14,6 @@ export default class BasePage {
         return this
     }
 
-    elementShouldBeVisible(element) {
-        element.should('be.visible');
-        return this
-    }
-
     urlCheck(url) {
         cy.url().should('eq', url);
         return this

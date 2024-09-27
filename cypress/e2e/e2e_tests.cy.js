@@ -17,16 +17,21 @@ describe('EPAM E2E testing', () => {
 
       homePage
         .visitUrl()
-        .themeCheck()
+        .themeMode.invoke('text').then((initialTheme) => {
+
+        homePage
+            .clickThemeMode()
+            .themeMode.invoke('text').should('not.eq', initialTheme);
+      });
     });
 
     it('should navigate to the Ukrainian careers page', () => {
       
       homePage
         .visitUrl()
-        .clickOnElement(homePage.languageArrowButton)
-        .clickOnElement(homePage.uaLanguageButton)
-        .pageException()
+          .clickLanguageArrowButton()
+          .clickUaLanguageButton()
+          .pageException()
 
       let vacanciesButtonSelector = homePage.vacanciesButtonSelector;
       cy.origin('https://careers.epam.ua', { args: { vacanciesButtonSelector } }, ({ vacanciesButtonSelector }) => {
@@ -46,36 +51,63 @@ describe('EPAM E2E testing', () => {
     it('Visits EPAM and checks location list', () => {
       
       homePage
-        .visitUrl()
-        .locationCheck(testData.region)
+        .visitUrl();
+        testData.region.forEach(region => {
+          homePage.clickLocationTab(region);
+          cy.contains('a', region)
+              .should('have.class', 'active')
+                      .and('attr', 'aria-selected', 'true');
+        })
     });
 
     it('Checks the search function', () => {
 
       homePage
         .visitUrl()
-        .typeInSearchField(testData.searchKeyword)
-        .elementShouldBeVisible(homePage.searchResultList)
-        .validateSearchResults(testData.searchKeyword)
+          .typeInSearchFieldAndClickFindButton('AI')
+          .searchResultList.should('be.visible')
+      homePage
+      .searchResultItem
+           .should('be.visible')
+           .each(($article) => {
+                cy.wrap($article).should('contain', 'AI')
+          });
     });
 
-    it('Check required fields validation', () => {
-      
-      const fields = {
-        firstNameField: testData.contactUsFields.firstNameField,
-        lastNameField: testData.contactUsFields.lastNameField,
-        userEmailField: testData.contactUsFields.userEmailField,
-        userPhoneField: testData.contactUsFields.userPhoneField,
-        userCompanyField: testData.contactUsFields.userCompanyField,
-        commentField: testData.contactUsFields.commentField,
-        howDidYouHearField: testData.contactUsFields.howDidYouHearField
-      };
-
-      contactUsPage
+  it('Check required fields validation', () => {
+    contactUsPage
         .visitUrl()
-        .clickOnElement(contactUsPage.contactUsSubmitButton)
-        .contuctUsFieldsValidation(fields)
-    });
+        .clickContactUsSubmitButton();
+
+    contactUsPage
+        .firstNameField
+        .should('have.attr', 'aria-invalid', 'true')
+    contactUsPage
+        .lastNameField
+        .should('have.attr', 'aria-invalid', 'true')
+
+    contactUsPage
+        .userEmailField
+        .should('have.attr', 'aria-invalid', 'true');
+
+    contactUsPage
+        .userPhoneField
+        .should('have.attr', 'aria-invalid', 'true');
+
+    contactUsPage
+        .userCompanyField
+        .should('have.attr', 'aria-invalid', 'false');
+
+    contactUsPage
+        .commentField
+        .should('have.attr', 'aria-invalid', 'false');
+
+    contactUsPage
+        .howDidYouHearField
+        .should('have.attr', 'aria-invalid', 'true');
+
+  });
+
   
     it('checks if the company logo leads to the main page', () => {
 

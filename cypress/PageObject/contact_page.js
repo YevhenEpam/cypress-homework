@@ -39,11 +39,8 @@ class ContactUsPage extends BasePage {
         return this
     }
 
-    contuctUsFieldsValidation(fields) {
-        Object.keys(fields).forEach(fieldKey => {
-            this[fieldKey].should('have.attr', 'aria-invalid', fields[fieldKey]);
-        });
-        return this;
+    clickContactUsSubmitButton() {
+        return this.contactUsSubmitButton.click();
     }
 }
 
