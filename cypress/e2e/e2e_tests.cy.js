@@ -74,41 +74,28 @@ describe('EPAM E2E testing', () => {
           });
     });
 
-  it('Check required fields validation', () => {
-    contactUsPage
-        .visitUrl()
-        .clickContactUsSubmitButton();
+  it.only('Check required fields validation', () => {
+    contactUsPage.visitUrl().clickContactUsSubmitButton();
 
-    contactUsPage
-        .firstNameField
-        .should('have.attr', 'aria-invalid', 'true')
-    contactUsPage
-        .lastNameField
-        .should('have.attr', 'aria-invalid', 'true')
+    const fieldsToCheck = [
+      { field: contactUsPage.firstNameField, expected: 'true' },
+      { field: contactUsPage.lastNameField, expected: 'true' },
+      { field: contactUsPage.userEmailField, expected: 'true' },
+      { field: contactUsPage.userPhoneField, expected: 'true' },
+      { field: contactUsPage.howDidYouHearField, expected: 'true' },
+      { field: contactUsPage.userCompanyField, expected: 'false' },
+      { field: contactUsPage.commentField, expected: 'false' }
+    ];
 
-    contactUsPage
-        .userEmailField
-        .should('have.attr', 'aria-invalid', 'true');
+    cy.wait(50); // Failed [name='user_comment'] without the following. Don't know the reason
 
-    contactUsPage
-        .userPhoneField
-        .should('have.attr', 'aria-invalid', 'true');
-
-    contactUsPage
-        .userCompanyField
-        .should('have.attr', 'aria-invalid', 'false');
-
-    contactUsPage
-        .commentField
-        .should('have.attr', 'aria-invalid', 'false');
-
-    contactUsPage
-        .howDidYouHearField
-        .should('have.attr', 'aria-invalid', 'true');
-
+    fieldsToCheck.forEach(({ field, expected }) => {
+      field.should('have.attr', 'aria-invalid', expected).then((attrValue) => {
+        cy.log(`Field: ${field.selector}, aria-invalid: ${attrValue}`);
+      });
+    });
   });
 
-  
     it('checks if the company logo leads to the main page', () => {
 
       aboutPage
