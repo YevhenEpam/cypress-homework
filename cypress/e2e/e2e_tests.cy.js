@@ -91,7 +91,6 @@ describe('EPAM E2E testing', () => {
 
     fieldsToCheck.forEach(({ field, expected }) => {
       field.should('have.attr', 'aria-invalid', expected).then((attrValue) => {
-        cy.log(`Field: ${field.selector}, aria-invalid: ${attrValue}`);
       });
     });
   });
