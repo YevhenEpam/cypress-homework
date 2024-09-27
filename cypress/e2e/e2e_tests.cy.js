@@ -74,7 +74,7 @@ describe('EPAM E2E testing', () => {
           });
     });
 
-  it.only('Check required fields validation', () => {
+  it('Check required fields validation', () => {
     contactUsPage.visitUrl().clickContactUsSubmitButton();
 
     const fieldsToCheck = [
