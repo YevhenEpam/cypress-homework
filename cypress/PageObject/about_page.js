@@ -9,11 +9,6 @@ class AboutPage extends BasePage {
     get downloadButton() {
         return cy.get(".button__wrapper > a[download='']");
     }
-
-    fileNameCheck(filename) {
-        cy.readFile(filename).should('exist');
-        return this
-    }
 }
 
 export const aboutPage = new AboutPage();

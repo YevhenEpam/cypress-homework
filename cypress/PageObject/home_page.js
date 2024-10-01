@@ -63,7 +63,7 @@ class HomePage extends BasePage {
         return this;
     }
 
-    typeInSearchField(keyword) {
+    typeInSearchFieldAndClickFindButton(keyword) {
         this.searchButton.click();
         this.searchFieldInput.type(keyword);
         this.findButton.click();
@@ -80,49 +80,29 @@ class HomePage extends BasePage {
         return this;
     }
 
-    themeCheck() {
-        this.themeMode.invoke('text').then((initialTheme) => {
-  
-            this.themeModeButton.click();
-            this.themeMode.invoke('text').should('not.eq', initialTheme);
-          });
-        return this
-    }
-
-    policyLinksCheck(policyLinks) {
-        policyLinks.forEach(link => {
-            cy.get(link.container).contains('a', link.text).should('be.visible');
-          });
-        return this
-    }
-
-    locationCheck (locationList) {
-        locationList.forEach(region => {
-            cy.contains('a', region)
-              .should('be.visible')
-              .and('have.attr', 'role', 'tab') 
-              .click();
-    
-            cy.contains('a', region)
-              .should('have.class', 'active')
-              .and('attr', 'aria-selected', 'true');
-          });
-    }
-
-    validateSearchResults(searchKeyword) {
-        this.searchResultItem.should('have.length.greaterThan', 0, 'No results found.');
-        this.searchResultItem.each((_, index) => {
-            this.searchResultTitle.eq(index).invoke('text').then((titleText) => {
-                this.searchResultDescription.eq(index).invoke('text').then((descriptionText) => {
-                    expect(
-                        titleText.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                        descriptionText.toLowerCase().includes(searchKeyword.toLowerCase())
-                    ).to.be.true;
-                });
-            });
-        });
+    clickThemeMode() {
+        this.themeModeButton.click();
         return this;
     }
+
+    policyLinks(link) {
+        return cy.get(link.container).contains('a', link.text);
+    }
+
+    clickLocationTab(region) {
+        return cy.contains('a', region).should('be.visible').click();
+    }
+
+    clickLanguageArrowButton() {
+        this.languageArrowButton.click();
+        return this
+    }
+
+    clickUaLanguageButton() {
+        this.uaLanguageButton.click();
+        return this;
+    }
+
 }
 
 export const homePage = new HomePage();

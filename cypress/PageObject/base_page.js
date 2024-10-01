@@ -9,18 +9,8 @@ export default class BasePage {
         return this
     };
 
-    titleCheck(title) {
-        cy.title().should("eq", title);
-        return this
-    }
-
     clickOnElement(element) {
         element.click();
-        return this
-    }
-
-    elementShouldBeVisible(element) {
-        element.should('be.visible');
         return this
     }
 
