@@ -77,22 +77,19 @@ describe('EPAM E2E testing', () => {
   it('Check required fields validation', () => {
     contactUsPage.visitUrl().clickContactUsSubmitButton();
 
-    const fieldsToCheck = [
-      { field: contactUsPage.firstNameField, expected: 'true' },
-      { field: contactUsPage.lastNameField, expected: 'true' },
-      { field: contactUsPage.userEmailField, expected: 'true' },
-      { field: contactUsPage.userPhoneField, expected: 'true' },
-      { field: contactUsPage.howDidYouHearField, expected: 'true' },
-      { field: contactUsPage.userCompanyField, expected: 'false' },
-      { field: contactUsPage.commentField, expected: 'false' }
-    ];
+    const fields = {
+      "[name='user_first_name']" : 'true',
+      "[name='user_last_name']" : 'true',
+      "[name='user_email']" : 'true',
+      "[name='user_phone']" : 'true',
+      "[name='user_company']" : 'false',
+      "[name='user_comment']" : 'false',
+      "[aria-labelledby='_content_epam_en_about_who-we-are_contact_jcr_content_content-container_section_section-par_form_constructor_user_comment_how_hear_about-label select2-_content_epam_en_about_who-we-are_contact_jcr_content_content-container_section_section-par_form_constructor_user_comment_how_hear_about-container']" : 'true'
+    }
 
-    cy.wait(50); // Failed [name='user_comment'] without the following. Don't know the reason
-
-    fieldsToCheck.forEach(({ field, expected }) => {
-      field.should('have.attr', 'aria-invalid', expected).then((attrValue) => {
-      });
-    });
+    for (let fieldsKey in fields) {
+      cy.get(fieldsKey).should('have.attr', 'aria-invalid', fields[fieldsKey]);
+    }
   });
 
     it('checks if the company logo leads to the main page', () => {
